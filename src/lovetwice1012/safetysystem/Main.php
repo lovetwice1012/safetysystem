@@ -1,6 +1,6 @@
 <?php
 
-namespace lovetwice1012\safetysystem\Main;
+namespace lovetwice1012\safetysystem;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\Player;
