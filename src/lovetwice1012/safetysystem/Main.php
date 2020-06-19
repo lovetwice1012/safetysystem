@@ -26,27 +26,51 @@ use pocketmine\event\entity\EntityExplodeEvent;
 use pocketmine\event\block\BlockFormEvent;
 use pocketmine\event\block\BlockSpreadEvent;
 use pocketmine\event\block\BlockBurnEventments;
+use pocketmine\block\BlockFactory;
+use pocketmine\block\Lava;
+use pocketmine\block\Water;
+use pocketmine\block\Fire;
+
 
 class Main extends pluginBase implements Listener
 {
     public function onEnable()
     {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-
-    }
-    //流体の流出阻止
-    public function BlockSpread(BlockSpreadEvent $event){        
-        Server::getInstance()->broadcastMessage("流体の流出を阻止しました。");
-        
-        $event->setCancelled();
-    }
-    //延焼を阻止
-    public function BlockBurn(BlockBurnEvent $event){
-        //$block = $event->getBlock();//延焼にて削除致します、ブロック...
-        //$causingblock = $event->getCausingBlock();//延焼の原因ブロック...(炎ブロック..)
-        Server::getInstance()->broadcastMessage("延焼を阻止しました。");
-        
-        $event->setCancelled();
+        //水の流出阻止        
+	BlockFactory::registerBlock(new class () extends Water {
+            public function onScheduledUpdate(): void
+            {
+                    //Stop
+            }
+        }, true);
+	//氷を解けなくする1
+	BlockFactory::registerBlock(new class () extends Ice {
+	    public function onBreak(Item $item, Player $player = null) : bool{
+		//don't do enything when Ice break with silktouch
+		return parent::onBreak($item, $player);
+	    }
+	}, true);
+	//氷を解けなくする2
+	BlockFactory::registerBlock(new class () extends Ice {
+	    public function onRandomTick() : void{
+		//stop
+	    }
+	}, true);
+	//溶岩の流出阻止
+	BlockFactory::registerBlock(new class() extends Lava {
+            public function onScheduledUpdate(): void
+            {
+                //Stop
+            }
+        }, true);
+        //炎の延焼阻止
+	BlockFactory::registerBlock(new class() extends Fire {
+            public function onScheduledUpdate(): void
+            {
+                //Stop
+            }
+        }, true);
     }
 	
 ///落下ダメージ無効化
@@ -65,7 +89,6 @@ class Main extends pluginBase implements Listener
     {
         $event->setCancelled();
         $player = $event->getPlayer();
-        $player->sendMessage("爆発はキャンセルされました。TNTは使用しないでください。");
     }
 	
  }
