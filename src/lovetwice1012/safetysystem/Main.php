@@ -25,10 +25,9 @@ use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\entity\EntityExplodeEvent;
 use pocketmine\event\block\BlockFormEvent;
 use pocketmine\event\block\BlockSpreadEvent;
+use pocketmine\event\block\BlockBurnEventments;
 
-
-se 
-class Ma\n ext\nds p\uginBase implep;ocketmine/event/block/BlockBurnEventments Listener
+class Main extends pluginBase implements Listener
 {
     public function onEnable()
     {
