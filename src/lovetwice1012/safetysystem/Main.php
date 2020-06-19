@@ -88,7 +88,6 @@ class Main extends pluginBase implements Listener
     public function onExplode(EntityExplodeEvent $event)
     {
         $event->setCancelled();
-        $player = $event->getPlayer();
     }
 	
  }
