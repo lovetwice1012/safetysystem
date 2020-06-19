@@ -30,7 +30,7 @@ use pocketmine\block\BlockFactory;
 use pocketmine\block\Lava;
 use pocketmine\block\Water;
 use pocketmine\block\Fire;
-
+use pocketmine\block\Ice;
 
 class Main extends pluginBase implements Listener
 {
