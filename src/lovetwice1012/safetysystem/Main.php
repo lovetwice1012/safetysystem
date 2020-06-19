@@ -67,7 +67,5 @@ class Main extends pluginBase implements Listener
         $player = $event->getPlayer();
         $player->sendMessage("爆発はキャンセルされました。TNTは使用しないでください。");
     }
-
-
+	
  }
-u
