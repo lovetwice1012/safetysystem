@@ -32,14 +32,24 @@ class Main extends pluginBase implements Listener
 {
     public function onEnable()
     {
-        $this->getLogger()->notice("----------------------");
-        $this->getLogger()->notice("serverTool構築完了。");
-        $this->getLogger()->notice("----------------------");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
 
     }
-
-
+    //流体の流出阻止
+    public function BlockSpread(BlockSpreadEvent $event){        
+        Server::getInstance()->broadcastMessage("流体の流出を阻止しました。");
+        
+        $event->setCancelled();
+    }
+    //延焼を阻止
+    public function BlockBurn(BlockBurnEvent $event){
+        //$block = $event->getBlock();//延焼にて削除致します、ブロック...
+        //$causingblock = $event->getCausingBlock();//延焼の原因ブロック...(炎ブロック..)
+        Server::getInstance()->broadcastMessage("延焼を阻止しました。");
+        
+        $event->setCancelled();
+    }
+	
 ///落下ダメージ無効化
     public function EntityDamage(EntityDamageEvent $event)
 	{
